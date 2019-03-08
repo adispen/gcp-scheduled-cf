@@ -7,14 +7,14 @@ Whether you're managing key rotation, creating monitoring alerts, or policing ex
  With the release of the new Google 2.0.0 Terraform Provider though, running a Cloud Function on a 
  given cron schedule has become just a bit easier.
  
-#### GCP 2.0.0 Terraform Provider
+### GCP 2.0.0 Terraform Provider
 
 On its [February 12th 2018 release](https://github.com/terraform-providers/terraform-provider-google/blob/master/CHANGELOG.md#200-february-12-2019), the newest version of the GCP provider for Terraform included some 
  interesting and undocumented changes, including the `google_cloudfunctions_function` resource in the 
  `google-beta` branch.  Poking through some [related pull requests](https://github.com/GoogleCloudPlatform/magic-modules/pull/1102) 
  allows us to find some documentation on how to get started.
  
-#### Setting Up
+### Setting Up
 
 Creating a Cloud Function in Terraform starts with managing your source code.  There are a few different
  methods, including pulling from an external repo, but for this example I'll be setting up my environment
@@ -52,7 +52,7 @@ resource "google_storage_bucket_object" "hello_world_zip" {
 }
 ```
 
-#### Creating the Cloud Function
+### Creating the Cloud Function
  Now that our code is in the cloud we need to create the Cloud Function itself.  At the time of writing
  GCP support for Python Cloud Functions is in beta and only supports a `python3.7` runtime.
  ```hcl-terraform
@@ -71,7 +71,7 @@ resource "google_cloudfunctions_function" "hello_world_function" {
  Here we make sure to enable the HTTP trigger for the Cloud Function since Cloud Scheduler requires an
  endpoint for scheduling.
  
-#### Cloud Scheduler
+### Cloud Scheduler
  With our Cloud Function defined, we now need to define its trigger mechanism.
  ```hcl-terraform
 provider "google-beta" {
