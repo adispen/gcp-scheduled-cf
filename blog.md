@@ -11,14 +11,15 @@ Whether you're managing key rotation, creating monitoring alerts, or policing ex
 
 On its [February 12th 2018 release](https://github.com/terraform-providers/terraform-provider-google/blob/master/CHANGELOG.md#200-february-12-2019), the newest version of the GCP provider for Terraform included some 
  interesting and undocumented changes, including the `google_cloudfunctions_function` resource in the 
- `google-beta` branch.  Poking through some [related pull requests](https://github.com/GoogleCloudPlatform/magic-modules/pull/1102) 
+ `google-beta` branch.  Poking through some of the source code and tests
  allows us to find some documentation on how to get started.
  
 ### Setting Up
 
 Creating a Cloud Function in Terraform starts with managing your source code.  There are a few different
  methods, including pulling from an external repo, but for this example I'll be setting up my environment
- like so.
+ so Terraform can create a `.zip` archive.  The folder structure below is what I used for the code samples in the
+ rest of this demo.
  ```
  terraform/
  ├── hello_world/
@@ -26,7 +27,7 @@ Creating a Cloud Function in Terraform starts with managing your source code.  T
  ├── main.tf
  └── variables.tf
  ```
- With this setup our Terraform code will zip up the `hello_world` directory, upload it to a bucket, 
+ With this setup our Terraform code will create a compressed archive of the `hello_world` directory, upload it to a bucket, 
  and pass that object reference to the Cloud Function.  It is worth noting that for a Cloud Function
  with a Python runtime the file that contains the entrypoint must be named `main.py`.  
  
@@ -53,7 +54,7 @@ resource "google_storage_bucket_object" "hello_world_zip" {
 ```
 
 ### Creating the Cloud Function
- Now that our code is in the cloud we need to create the Cloud Function itself.  At the time of writing
+ Now that our code is in the cloud, we need to create the Cloud Function itself.  At the time of writing
  GCP support for Python Cloud Functions is in beta and only supports a `python3.7` runtime.
  ```hcl-terraform
 resource "google_cloudfunctions_function" "hello_world_function" {
