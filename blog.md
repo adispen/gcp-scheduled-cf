@@ -102,5 +102,5 @@ resource "google_cloud_scheduler_job" "hello_world_trigger" {
  
 #### Further Reading
 * [Google Cloud Function Terraform Resource](https://www.terraform.io/docs/providers/google/r/cloudfunctions_function.html)
-* [Google Cloud Scheduler Terraform Resource](https://www.terraform.io/docs/providers/google/r/cloud_scheduler_job.html)
+* [Google Cloud Scheduler Job Terraform Resource](https://www.terraform.io/docs/providers/google/r/cloud_scheduler_job.html)
 * [Source code for this lab](https://github.com/adispen/gcp-scheduled-cf)
