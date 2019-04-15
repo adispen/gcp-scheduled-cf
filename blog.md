@@ -81,6 +81,12 @@ provider "google-beta" {
   zone    = "us-east1-b"
 }
 
+# create an app engine application for your scheduler
+resource "google_app_engine_application" "hello_world_scheduler_app" {
+  project     = "${var.project_id}"
+  location_id = "us-east1"
+}
+
 resource "google_cloud_scheduler_job" "hello_world_trigger" {
   provider    = "google-beta"
 

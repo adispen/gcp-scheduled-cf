@@ -26,6 +26,11 @@ resource "google_storage_bucket_object" "hello_world_zip" {
   source = "${path.root}/hello_world.zip"
 }
 
+resource "google_app_engine_application" "hello_world_scheduler_app" {
+  project     = "${var.project_id}"
+  location_id = "us-east1"
+}
+
 resource "google_cloudfunctions_function" "hello_world_function" {
   name                  = "hello-world-function"
   description           = "Scheduled Hello World Function"
