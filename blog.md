@@ -1,10 +1,10 @@
 # Deploying Scheduled Cloud Functions with Terraform
 
 Whether you're managing key rotation, creating monitoring alerts, or policing expiration policies on your
- resources; you will probably look to scheduled serverless functions for a cheap and scalable
+ resources you will probably look to scheduled serverless functions for a cheap and scalable
  solution.  While investigating the feasibility of using Google Cloud Functions to manage project expiration
  in Google Cloud Platform it became apparent that this kind of functionality was still fairly immature.
- With the release of the new Google 2.0.0 Terraform Provider though, running a Cloud Function on a 
+ With the release of the new Google 2.0.0 Terraform Provider, running a Cloud Function on a 
  given cron schedule has become just a bit easier.
  
 ### GCP 2.0.0 Terraform Provider
@@ -54,7 +54,7 @@ resource "google_storage_bucket_object" "hello_world_zip" {
 ```
 
 ### Creating the Cloud Function
- Now that our code is in the cloud, we need to create the Cloud Function itself.  At the time of writing
+ Now that our code is in the cloud, we need to create the Cloud Function itself.  At the time of writing,
  GCP support for Python Cloud Functions is in beta and only supports a `python3.7` runtime.
  ```hcl-terraform
 resource "google_cloudfunctions_function" "hello_world_function" {
@@ -98,7 +98,7 @@ resource "google_cloud_scheduler_job" "hello_world_trigger" {
   }
 }
 ```
- At the time of writing the `google_cloud_scheduler_job` resource is only available in the `google-beta`
+ At the time of writing, the `google_cloud_scheduler_job` resource is only available in the `google-beta`
  provider, so we need to make sure to include it in the resource definition.  Note that if you already have
  any App Engine resources in a particular zone you must also specify that region and zone here, since Cloud Scheduler
  utilizes App Engine.
