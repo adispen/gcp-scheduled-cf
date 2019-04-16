@@ -2,7 +2,7 @@
 
 Whether you're managing key rotation, creating monitoring alerts, or policing expiration policies on your
  resources you will probably look to scheduled serverless functions for a cheap and scalable
- solution.  While investigating the feasibility of using Google Cloud Functions to manage project expiration
+ solution.  While investigating the feasibility of using Google Cloud Functions to manage project resources
  in Google Cloud Platform it became apparent that this kind of functionality was still fairly immature.
  With the release of the new Google 2.0.0 Terraform Provider, running a Cloud Function on a 
  given cron schedule has become just a bit easier.
@@ -17,8 +17,7 @@ On its [February 12th 2018 release](https://github.com/terraform-providers/terra
 ### Setting Up
 
 Creating a Cloud Function in Terraform starts with managing your source code.  There are a few different
- methods, including pulling from an external repo, but for this example I'll be setting up my environment
- so Terraform can create a `.zip` archive.  The folder structure below is what I used for the code samples in the
+ methods, including pulling from an external repo, but for this example I'll be storing my Terraform and function source code in the same repository allowing Terraform to manage the archiving.  The folder structure below is what I used for the code samples in the
  rest of this demo.
  ```
  terraform/
@@ -73,7 +72,7 @@ resource "google_cloudfunctions_function" "hello_world_function" {
  endpoint for scheduling.
  
 ### Cloud Scheduler
- With our Cloud Function defined, we now need to define its trigger mechanism.
+ With our Cloud Function defined, we now need to create its scheduled trigger.
  ```hcl-terraform
 provider "google-beta" {
   project = "${var.project_id}"
@@ -103,7 +102,7 @@ resource "google_cloud_scheduler_job" "hello_world_trigger" {
  any App Engine resources in a particular zone you must also specify that region and zone here, since Cloud Scheduler
  utilizes App Engine.
  
- The schedule argument accepts any valid cron style string.  For example `* * * * *` would create a trigger 
+ The schedule argument accepts any valid [cron style](https://crontab.guru/) string.  For example `* * * * *` would create a trigger 
  that fires on every minute.  Passing these in as a variable can allow you to better modularize this particular
  resource.
  
